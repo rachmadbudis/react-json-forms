@@ -1,0 +1,46 @@
+{
+    "type": "Categorization",
+    "elements": [
+      {
+        "type": "Category",
+        "label": "Private",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/name"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/birthDate"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/vegetarian"
+          }
+        ]
+      },
+      {
+        "type": "Category",
+        "label": "Additional",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/birthDate"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/vegetarian"
+          }
+        ],
+        "rule": {
+          "effect": "HIDE",
+          "condition": {
+            "scope": "#/properties/vegetarian",
+            "schema": {
+              "const": true
+            }
+          }
+        }
+      }
+    ]
+  }

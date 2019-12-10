@@ -1,0 +1,70 @@
+{
+    "type": "Categorization",
+    "elements": [
+      {
+        "type": "Category",
+        "label": "  Procedurele gegevens ",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/smartflownumber"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/appliedDate"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/appliedLocation"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/addedDate"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/addedLocation"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/interviewDate"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/interviewLocation"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/POLLocation"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/married"
+          }
+        ]
+      },
+      {
+        "type": "Category",
+        "label": "Customer Data",
+        "elements": [
+          {
+            "type": "Control",
+            "scope": "#/properties/vnumber"
+          },
+          {
+            "type": "Control",
+            "scope": "#/properties/casenumber"
+          }
+        ],
+        "rule": {
+          "effect": "SHOW",
+          "condition": {
+            "scope": "#/properties/married",
+            "schema": {
+              "const": true
+            }
+          }
+        }
+      }
+    ]
+  }

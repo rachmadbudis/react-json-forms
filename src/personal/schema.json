@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "properties": {
+    "smartflownumber": {
+      "type": "string",
+      "minLength": 7,
+      "description": "Please enter your smartflownumber"
+    },
+    "married": {
+      "type": "boolean"
+    },
+    "appliedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Please enter your applied date."
+    },
+    "appliedLocation": {
+      "type": "string",
+      "description": "Please enter your applied Location."
+    },
+    "addedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Please enter your added date."
+    },
+    "addedLocation": {
+      "type": "string",
+      "description": "Please enter your added Location."
+    },
+    "interviewDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Please enter your interview date."
+    },
+    "interviewLocation": {
+      "type": "string",
+      "description": "Please enter your intervied Location."
+    },
+    "POLLocation": {
+      "type": "string",
+      "description": "Please enter your POLLocation."
+    },
+    "vnumber": {
+      "type": "string",
+      "description": "Please enter your vnumber."
+    },
+    "casenumber": {
+      "type": "string",
+      "description": "Please enter your casenumber."
+    }
+  },
+  "required": [
+          "smartflownumber",
+          "appliedDate"
+  ]
+}
