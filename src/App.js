@@ -1,7 +1,6 @@
 import React, { useState, Fragment,useCallback } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { person } from "@jsonforms/examples";
 import {
   materialCells,
   materialRenderers
@@ -18,7 +17,10 @@ import personalUISchema from "./personal/uischema.json";
 import personaData from "./personal/data.json";
 import axios from "axios";
 import { Tabs, Tab } from '@material-ui/core';
-
+import Component1 from './Component1.js';
+import Component2 from './Component2.js';
+import Component3 from './Component3.js';
+import StepZilla from "react-stepzilla";
 
 function App() {
   const [standaloneData, setStandaloneData] = useState(arraydata);
@@ -50,15 +52,26 @@ function App() {
     //     "Accept": "application/json"      }
     // });
   };
+  const steps =
+    [
+      {name: 'Step 1', component: <Component1 />},
+      {name: 'Step 2', component: <Component2 />},
+      {name: 'Step 3', component: <Component3 />}
+    ]
 
   return (
     <Fragment>
-      
-      
-      
-      <Tabs value={tabIdx} onChange={handleTabChange}>
+      <div className='step-progress'>
+        <StepZilla steps={steps} stepsNavigation={false} showSteps={false}
+        hocValidationAppliedTo={[2]}
+        preventEnterSubmission={true}
+        />
+      </div>
+
+
+      {/* <Tabs value={tabIdx} onChange={handleTabChange}>
         <Tab label="Array" />
-        <Tab label="Catagory" />
+        <Tab label="Catagory" disabled/>
         <Tab label="Personal" />
       </Tabs>
       {tabIdx === 0 && (
@@ -108,7 +121,7 @@ function App() {
               Submit
             </button>
           </div>
-          )}
+          )} */}
     </Fragment>
   );
 }
