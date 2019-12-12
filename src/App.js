@@ -1,4 +1,4 @@
-import React, { useState, Fragment,useCallback } from "react";
+import React, { useState, Fragment, useCallback } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import {
@@ -16,13 +16,14 @@ import personalSchema from "./personal/schema.json";
 import personalUISchema from "./personal/uischema.json";
 import personaData from "./personal/data.json";
 import axios from "axios";
-import { Tabs, Tab } from '@material-ui/core';
-import Component1 from './Component1.js';
-import Component2 from './Component2.js';
-import Component3 from './Component3.js';
+import { Tabs, Tab } from "@material-ui/core";
+import Component1 from "./Component1.js";
+import Component2 from "./Component2.js";
+import Component3 from "./Component3.js";
 import StepZilla from "react-stepzilla";
 
 function App() {
+  let lastStep = 0;
   let [standaloneData, setStandaloneData] = useState(arraydata);
   const [standaloneCategoryData, setStandaloneCategoryData] = useState(
     catgoryData
@@ -31,56 +32,67 @@ function App() {
     personaData
   );
   const [tabIdx, setTabIdx] = useState(0);
-  const handleTabChange = useCallback(
-    (event: any, newValue: number) => {
-      setTabIdx(newValue);
-    }
-  );
-
-  const updateStore =  (data) =>{
+  const handleTabChange = useCallback((event: any, newValue: number) => {
+    setTabIdx(newValue);
+  });
+  const updateStore = data => {
     setStandalonePersonalData(data);
-  }
+  };
 
-  const getStore = () =>{
+  const getStore = () => {
     return standalonePersonalData;
-  }
+  };
 
   const getBaseUrl = url => `http://localhost:8080/api/${url}`;
 
-  const handleSubmit = (url,step) => {
+  const handleSubmit = (url, step) => {
     console.log(getBaseUrl(url));
     let data = {};
-    if(step===2){
-      data = standalonePersonalData;
+    if (lastStep < step) {
+      if (steps[step - 1].name == "Personal") {
+        data = standalonePersonalData;
+      }
+      console.log(steps[step - 1].name);
+      console.log(data);
+      // axios.post(getBaseUrl(url), standaloneData, {
+      //   headers: {
+      //     "Content-type": "application/json",
+      //     "Accept": "application/json"      }
+      // });
     }
-    console.log(data);
+    lastStep = step;
+    console.log(lastStep);
 
     // const url = `http://localhost:8080/api/`;
-
-    // axios.post(getBaseUrl(url), standaloneData, {
-    //   headers: {
-    //     "Content-type": "application/json",
-    //     "Accept": "application/json"      }
-    // });
   };
-  const steps =
-    [
-      {name: 'Step 1', component: <Component1 />},
-      {name: 'Step 2', component: <Component2 getStore={getStore} updateStore={(u) => {updateStore(u)}}/>},
-      {name: 'Step 3', component: <Component3 />}
-    ]
+  const steps = [
+    { name: "Array", component: <Component1 /> },
+    {
+      name: "Personal",
+      component: (
+        <Component2
+          getStore={getStore}
+          updateStore={u => {
+            updateStore(u);
+          }}
+        />
+      )
+    },
+    { name: "Component 3", component: <Component3 /> }
+  ];
 
   return (
     <Fragment>
-      <div className='step-progress'>
-        <StepZilla steps={steps} stepsNavigation={false} showSteps={false}
-        hocValidationAppliedTo={[2]}
-        preventEnterSubmission={true}
-        onStepChange={step =>
-          handleSubmit('save',step)}
+      <div className="step-progress">
+        <StepZilla
+          steps={steps}
+          stepsNavigation={false}
+          showSteps={false}
+          hocValidationAppliedTo={[2]}
+          preventEnterSubmission={true}
+          onStepChange={step => handleSubmit("save", step)}
         />
       </div>
-
 
       {/* <Tabs value={tabIdx} onChange={handleTabChange}>
         <Tab label="Array" />
