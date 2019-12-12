@@ -23,7 +23,7 @@ import Component3 from './Component3.js';
 import StepZilla from "react-stepzilla";
 
 function App() {
-  const [standaloneData, setStandaloneData] = useState(arraydata);
+  let [standaloneData, setStandaloneData] = useState(arraydata);
   const [standaloneCategoryData, setStandaloneCategoryData] = useState(
     catgoryData
   );
@@ -37,12 +37,23 @@ function App() {
     }
   );
 
+  const updateStore =  (data) =>{
+    setStandalonePersonalData(data);
+  }
+
+  const getStore = () =>{
+    return standalonePersonalData;
+  }
+
   const getBaseUrl = url => `http://localhost:8080/api/${url}`;
 
-  const handleSubmit = (url, data) => {
-    console.log(data);
-    console.log(url);
+  const handleSubmit = (url,step) => {
     console.log(getBaseUrl(url));
+    let data = {};
+    if(step===2){
+      data = standalonePersonalData;
+    }
+    console.log(data);
 
     // const url = `http://localhost:8080/api/`;
 
@@ -55,7 +66,7 @@ function App() {
   const steps =
     [
       {name: 'Step 1', component: <Component1 />},
-      {name: 'Step 2', component: <Component2 />},
+      {name: 'Step 2', component: <Component2 getStore={getStore} updateStore={(u) => {updateStore(u)}}/>},
       {name: 'Step 3', component: <Component3 />}
     ]
 
@@ -65,6 +76,8 @@ function App() {
         <StepZilla steps={steps} stepsNavigation={false} showSteps={false}
         hocValidationAppliedTo={[2]}
         preventEnterSubmission={true}
+        onStepChange={step =>
+          handleSubmit('save',step)}
         />
       </div>
 

@@ -9,6 +9,9 @@
     "married": {
       "type": "boolean"
     },
+    "step": {
+      "type": "string"
+    },
     "appliedDate": {
       "type": "string",
       "format": "date",

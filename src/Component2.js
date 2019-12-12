@@ -14,10 +14,6 @@ class Component2 extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      standalonePersonalData: personaData
-    };
-
     this.isValidated = this.isValidated.bind(this);
   }
 
@@ -26,6 +22,7 @@ class Component2 extends Component {
   componentWillUnmount() {}
 
   isValidated() {
+      console.log(this.props.standalonePersonalData);
       const isValid = document.getElementsByClassName('Mui-error');
         return isValid.length > 0?false:true;
   }
@@ -33,17 +30,13 @@ class Component2 extends Component {
   render() {
     return (
       <div className="App">
-        {JSON.stringify(this.state.standalonePersonalData)}
-
         <JsonForms
           schema={personalSchema}
           uischema={personalUISchema}
           renderers={materialRenderers}
-          data={personaData}
+          data={this.props.getStore()}
           onChange={({ errors, data }) =>
-            this.setState({
-              standalonePersonalData: data
-            })
+           this.props.updateStore(data)
           }
         />
       </div>
